@@ -5,6 +5,7 @@ import cn.tofly.mis.waterusermanager.common.di.ApplicationComponent;
 import dagger.Component;
 
 /**
+ * 作为连接桥
  * Created by hasee on 2016/9/26.
  */
 @ActivityScoped
