@@ -24,7 +24,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-public class TestActivity extends BaseActivity {
+public class TestActivity extends BaseActivity implements TestContract.View{
 
     private static final String TAG = "TestActivity";
 
@@ -37,6 +37,9 @@ public class TestActivity extends BaseActivity {
     @Bind(R.id.txv)
     TextView mTxv;
 
+    @Inject
+    TestPresenter mTestPresenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,7 @@ public class TestActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
-        DaggerTestComponent.builder().applicationComponent(((App) getApplication()).getApplicationComponent()).build().inject(this);
+        DaggerTestComponent.builder().applicationComponent(((App) getApplication()).getApplicationComponent()).testModule(new TestModule(this)).build().inject(this);
     }
 
     void dump() {
@@ -55,41 +58,7 @@ public class TestActivity extends BaseActivity {
     @OnClick(R.id.btn_read)
     void btnRead(View view) {
         LogUtils.w(TAG, "read.");
-        String xxx = mSharedPrefUtils.getSharedPreferences().getString("xxx", "not set");
-        LogUtils.toastShortMsg(this, xxx);
-
-        mIExampleNetService.getCby("getYqlbList")
-                .doOnNext(new Action1<CheckCoder>() {
-                    @Override
-                    public void call(CheckCoder checkCoder) {
-                        try {
-                            Thread.sleep(3000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-
-                        }
-                    }
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<CheckCoder>() {
-                    @Override
-                    public void onCompleted() {
-                        mTxv.setText(mTxv.getText().toString() + "\nonCompleted.");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        LogUtils.e("TAG", "error");
-                        mTxv.setText(e.getLocalizedMessage());
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onNext(CheckCoder checkCoder) {
-                        mTxv.setText(checkCoder.toString());
-                    }
-                });
+        mTestPresenter.loadCheckCoders();
 
     }
 
@@ -100,4 +69,9 @@ public class TestActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void showCoders(String item) {
+        mTxv.setText(item);
+
+    }
 }
