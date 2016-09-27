@@ -1,11 +1,14 @@
 package cn.tofly.mis.waterusermanager.testmodule;
 
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+
+import junit.framework.Test;
 
 import javax.inject.Inject;
 
@@ -14,6 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.tofly.mis.waterusermanager.App;
 import cn.tofly.mis.waterusermanager.R;
+import cn.tofly.mis.waterusermanager.common.tools.ActivityUtils;
 import cn.tofly.mis.waterusermanager.common.tools.LogUtils;
 import cn.tofly.mis.waterusermanager.common.tools.SharedPrefUtils;
 import cn.tofly.mis.waterusermanager.common.ui.BaseActivity;
@@ -24,21 +28,9 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
-public class TestActivity extends BaseActivity implements TestContract.View{
+public class TestActivity extends BaseActivity {
 
     private static final String TAG = "TestActivity";
-
-    @Inject
-    SharedPrefUtils mSharedPrefUtils;
-
-    @Inject
-    IExampleNetService mIExampleNetService;
-
-    @Bind(R.id.txv)
-    TextView mTxv;
-
-    @Inject
-    TestPresenter mTestPresenter;
 
 
     @Override
@@ -48,30 +40,37 @@ public class TestActivity extends BaseActivity implements TestContract.View{
 
         ButterKnife.bind(this);
 
-        DaggerTestComponent.builder().applicationComponent(((App) getApplication()).getApplicationComponent()).testModule(new TestModule(this)).build().inject(this);
+        //set up the toolbar
+        setUpToolbar();
+        setUpFragment();
+        restoreData(savedInstanceState);
     }
 
-    void dump() {
-        Gson gson = new Gson();
+    private void restoreData(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+
+        }
     }
-
-    @OnClick(R.id.btn_read)
-    void btnRead(View view) {
-        LogUtils.w(TAG, "read.");
-        mTestPresenter.loadCheckCoders();
-
-    }
-
-    @OnClick(R.id.btn_write)
-    void btnWrite(View view) {
-        LogUtils.w(TAG, "btnWrite.");
-        mSharedPrefUtils.save("xxx", "settttttttt girl");
-    }
-
 
     @Override
-    public void showCoders(String item) {
-        mTxv.setText(item);
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
 
     }
+
+
+
+    private void setUpFragment() {
+        TestFragment fragment = (TestFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (fragment == null) {
+            fragment = TestFragment.newInstance();
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), fragment, R.id.fragment_container);
+        }
+    }
+
+    private void setUpToolbar() {
+
+    }
+
+
 }

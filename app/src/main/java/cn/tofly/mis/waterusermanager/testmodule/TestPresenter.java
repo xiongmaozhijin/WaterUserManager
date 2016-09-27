@@ -16,7 +16,6 @@ import rx.schedulers.Schedulers;
  */
 public class TestPresenter implements TestContract.Presenter {
 
-
     private TestContract.View mView;
 
     private IExampleNetService mIExampleNetService;
@@ -64,5 +63,10 @@ public class TestPresenter implements TestContract.Presenter {
                 });
     }
 
+
+    @Override
+    public void onResume() {
+        LogUtils.w("xxx", "onResume()");
+    }
 
 }

@@ -13,8 +13,8 @@ public class TestModule {
 
     private TestContract.View mView;
 
-    public TestModule(TestActivity activity) {
-        mView = activity;
+    public TestModule(TestFragment fragment) {
+        mView = fragment;
     }
 
     @Provides

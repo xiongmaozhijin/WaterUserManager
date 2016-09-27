@@ -4,7 +4,6 @@ import android.app.Application;
 
 import cn.tofly.mis.waterusermanager.common.di.ApplicationComponent;
 import cn.tofly.mis.waterusermanager.common.di.ApplicationModule;
-import cn.tofly.mis.waterusermanager.common.di.ApplicationModule_ProvideContextFactory;
 import cn.tofly.mis.waterusermanager.common.di.DaggerApplicationComponent;
 
 /**

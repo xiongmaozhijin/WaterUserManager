@@ -12,6 +12,6 @@ import dagger.Component;
 @Component(dependencies = ApplicationComponent.class, modules = TestModule.class)
 public abstract class TestComponent {
 
-    public abstract void inject(TestActivity target);
+    public abstract void inject(TestFragment target);
 
 }
