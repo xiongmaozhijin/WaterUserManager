@@ -12,6 +12,7 @@
     <color name="yellow">#FFF7D23E</color>
     <color name="green">#FF34A350</color>
     <color name="transparent">#00000000</color>
+    <color name="light_gray">#DDDDDD</color>
 
 
 </resources>
