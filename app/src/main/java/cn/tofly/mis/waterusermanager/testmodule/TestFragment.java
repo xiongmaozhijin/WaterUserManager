@@ -60,10 +60,15 @@ public class TestFragment extends BaseFragment implements TestContract.View {
         return fragment;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         // Inflate the layout for this fragment
         View inflate = inflater.inflate(R.layout.fragment_test, container, false);
         Activity activity = getActivity() == null ? mActivity : getActivity();
@@ -105,14 +110,29 @@ public class TestFragment extends BaseFragment implements TestContract.View {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.menu_edit:
+                LogUtils.toastShortMsg(mActivity, "edit");
 
+                return true;
+            case R.id.menu_setting45:
+                LogUtils.toastShortMsg(mActivity, "setting45");
+
+                return true;
+            case android.R.id.home:
+                LogUtils.toastShortMsg(mActivity, "home");
+
+                return true;
+            default:
+        }
+
+        return false;
     }
 
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_test, menu);
     }
 
 

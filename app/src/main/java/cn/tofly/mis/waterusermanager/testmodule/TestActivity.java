@@ -1,8 +1,10 @@
 package cn.tofly.mis.waterusermanager.testmodule;
 
 import android.os.PersistableBundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
@@ -69,8 +71,15 @@ public class TestActivity extends BaseActivity {
     }
 
     private void setUpToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("xxxsss");
+
+        setSupportActionBar(toolbar);
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setDisplayShowHomeEnabled(true);
 
     }
-
 
 }
