@@ -25,6 +25,7 @@ import cn.tofly.mis.waterusermanager.common.tools.SharedPrefUtils;
 import cn.tofly.mis.waterusermanager.common.ui.BaseActivity;
 import cn.tofly.mis.waterusermanager.data.entity.CheckCoder;
 import cn.tofly.mis.waterusermanager.data.remote.IExampleNetService;
+import in.srain.cube.views.ptr.util.PtrLocalDisplay;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -50,7 +51,6 @@ public class TestActivity extends BaseActivity {
 
     private void restoreData(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-
         }
     }
 
