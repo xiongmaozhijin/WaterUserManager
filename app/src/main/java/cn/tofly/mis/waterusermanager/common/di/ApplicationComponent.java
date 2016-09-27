@@ -3,6 +3,8 @@ package cn.tofly.mis.waterusermanager.common.di;
 import android.content.SharedPreferences;
 
 import cn.tofly.mis.waterusermanager.common.tools.SharedPrefUtils;
+import cn.tofly.mis.waterusermanager.data.local.DBInstance;
+import cn.tofly.mis.waterusermanager.data.local.gendao.DaoSession;
 import cn.tofly.mis.waterusermanager.data.remote.IExampleNetService;
 import dagger.Component;
 
@@ -21,6 +23,8 @@ public abstract class ApplicationComponent {
 
     public abstract IExampleNetService getExampleNetService();
 
+
+    public abstract DBInstance getDBInstance();
 
 }
 

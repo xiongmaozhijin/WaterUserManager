@@ -1,14 +1,20 @@
 package cn.tofly.mis.waterusermanager.testmodule;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import cn.tofly.mis.waterusermanager.common.tools.LogUtils;
 import cn.tofly.mis.waterusermanager.common.ui.BasePresenter;
 import cn.tofly.mis.waterusermanager.data.entity.CheckCoder;
+import cn.tofly.mis.waterusermanager.data.local.DBInstance;
+import cn.tofly.mis.waterusermanager.data.local.gendao.TbTest;
 import cn.tofly.mis.waterusermanager.data.remote.IExampleNetService;
+import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -20,9 +26,12 @@ public class TestPresenter implements TestContract.Presenter {
 
     private IExampleNetService mIExampleNetService;
 
-    public TestPresenter(TestContract.View view, IExampleNetService service) {
+    private DBInstance mDbInstance;
+
+    public TestPresenter(TestContract.View view, IExampleNetService service, DBInstance dbInstance) {
         this.mView = view;
         this.mIExampleNetService = service;
+        this.mDbInstance = dbInstance;
     }
 
     @Override
@@ -61,6 +70,58 @@ public class TestPresenter implements TestContract.Presenter {
                         mView.showCoders(checkCoder.toString());
                     }
                 });
+    }
+
+    @Override
+    public void insertDbItem() {
+        if (mDbInstance == null ){
+            throw new RuntimeException("mDbInstance null");
+        }
+
+        if (mDbInstance.getTbTestDAO() == null) {
+            throw new RuntimeException("DAO null");
+        }
+
+        mDbInstance.getTbTestDAO().insert(new TbTest(null, "hell girl" + System.currentTimeMillis()));
+    }
+
+    @Override
+    public void loadDbItem() {
+        Observable.from(mDbInstance.getTbTestDAO().loadAll())
+                .toList()
+                .map(new Func1<List<TbTest>, String>() {
+                    @Override
+                    public String call(List<TbTest> tbTests) {
+                        String info = "";
+                        info += "size = " + tbTests.size() + "\n";
+                        for (TbTest item : tbTests) {
+                            info += "id=" + item.getTestId() + "\tcontent=" + item.getContent() + " \n";
+
+                        }
+
+                        return info;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onCompleted() {
+                        LogUtils.w("xxx", "onCompleted()");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        mView.showWriteDbInfo(e.getLocalizedMessage());
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        mView.showWriteDbInfo(s);
+                    }
+                });
+
     }
 
 

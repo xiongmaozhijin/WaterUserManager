@@ -1,6 +1,7 @@
 package cn.tofly.mis.waterusermanager.data;
 
 import cn.tofly.mis.waterusermanager.common.di.ApplicationComponent;
+import cn.tofly.mis.waterusermanager.data.local.DBInstance;
 import dagger.Component;
 
 /**
@@ -9,5 +10,7 @@ import dagger.Component;
 @DataScoped
 @Component(dependencies = ApplicationComponent.class, modules = DataModule.class)
 public abstract class DataComponent {
+
+    public abstract void inject(DBInstance target);
 
 }

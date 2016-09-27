@@ -15,5 +15,4 @@ public interface IExampleNetService {
     Observable<CheckCoder> getCby(@Query("mode") String queryMode);
 
 
-
 }

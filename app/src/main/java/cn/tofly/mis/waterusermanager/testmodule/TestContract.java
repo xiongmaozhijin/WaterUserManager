@@ -14,6 +14,8 @@ public interface TestContract {
      */
     interface View extends BaseViewOperation {
         void showCoders(String info);
+
+        void showWriteDbInfo(String info);
     }
 
     /**
@@ -21,6 +23,8 @@ public interface TestContract {
      */
     interface Presenter extends BasePresenter {
         void loadCheckCoders();
+        void insertDbItem();
+        void loadDbItem();
     }
 
 }

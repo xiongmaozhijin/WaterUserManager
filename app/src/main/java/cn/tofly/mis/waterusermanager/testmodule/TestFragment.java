@@ -22,6 +22,7 @@ import cn.tofly.mis.waterusermanager.R;
 import cn.tofly.mis.waterusermanager.common.tools.LogUtils;
 import cn.tofly.mis.waterusermanager.common.tools.SharedPrefUtils;
 import cn.tofly.mis.waterusermanager.common.ui.BaseFragment;
+import cn.tofly.mis.waterusermanager.data.local.DBInstance;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -92,18 +93,25 @@ public class TestFragment extends BaseFragment implements TestContract.View {
         String xxx = mSharedPrefUtils.getSharedPreferences().getString("xxx", "not setting");
         LogUtils.toastShortMsg(mActivity, xxx);
 
-        mTestPresenter.loadCheckCoders();
+//        mTestPresenter.loadCheckCoders();
+        mTestPresenter.loadDbItem();
     }
 
     @OnClick(R.id.btn_write)
     void btnWrite(View view) {
         LogUtils.w("xxx", "btnWrite()");
-        mSharedPrefUtils.save("xxx", "girl yessss");
+//        mSharedPrefUtils.save("xxx", "girl yessss");
+        mTestPresenter.insertDbItem();
     }
 
 
     @Override
     public void showCoders(String info) {
+        mTxv.setText(info);
+    }
+
+    @Override
+    public void showWriteDbInfo(String info) {
         mTxv.setText(info);
     }
 

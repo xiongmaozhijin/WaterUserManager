@@ -6,6 +6,10 @@ import android.content.SharedPreferences;
 
 import cn.tofly.mis.waterusermanager.App;
 import cn.tofly.mis.waterusermanager.common.tools.SharedPrefUtils;
+import cn.tofly.mis.waterusermanager.data.local.DBInstance;
+import cn.tofly.mis.waterusermanager.data.local.LocalDbFactory;
+import cn.tofly.mis.waterusermanager.data.local.gendao.DaoMaster;
+import cn.tofly.mis.waterusermanager.data.local.gendao.DaoSession;
 import cn.tofly.mis.waterusermanager.data.remote.IExampleNetService;
 import cn.tofly.mis.waterusermanager.data.remote.NetServiceFactory;
 import dagger.Module;
@@ -53,13 +57,22 @@ public final class ApplicationModule {
      *
      * @return
      */
+    @AppScoped
     @Provides
     IExampleNetService providerExampleNetService() {
         return NetServiceFactory.getExampleNetService();
     }
 
-
-
+    /**
+     * 数据库实例
+     * @param context
+     * @return
+     */
+    @AppScoped
+    @Provides
+    DBInstance providerDBInstance(Context context) {
+        return LocalDbFactory.getDBInstance(context, mApplication);
+    }
 
 
 }

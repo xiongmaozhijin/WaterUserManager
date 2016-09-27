@@ -42,4 +42,7 @@ dependencies {
     compile 'com.google.dagger:dagger:2.4'
     apt 'com.google.dagger:dagger-compiler:2.4'
 
+    //greendao
+    compile 'de.greenrobot:greendao:2.1.0'
+
 }

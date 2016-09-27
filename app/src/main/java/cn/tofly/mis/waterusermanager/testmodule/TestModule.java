@@ -1,5 +1,6 @@
 package cn.tofly.mis.waterusermanager.testmodule;
 
+import cn.tofly.mis.waterusermanager.data.local.DBInstance;
 import cn.tofly.mis.waterusermanager.data.remote.IExampleNetService;
 import dagger.Module;
 import dagger.Provides;
@@ -24,8 +25,8 @@ public class TestModule {
 
 
     @Provides
-    TestPresenter providerTestPresenter(TestContract.View view, IExampleNetService service) {
-        return new TestPresenter(view, service);
+    TestPresenter providerTestPresenter(TestContract.View view, IExampleNetService service, DBInstance dbInstance) {
+        return new TestPresenter(view, service, dbInstance);
     }
 
 
