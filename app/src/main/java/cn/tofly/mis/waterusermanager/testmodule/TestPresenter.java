@@ -71,20 +71,20 @@ public class TestPresenter implements TestContract.Presenter {
 
     @Override
     public void insertDbItem() {
-        if (mDbInstance == null ){
+        if (mDbInstance == null) {
             throw new RuntimeException("mDbInstance null");
         }
 
-        if (mDbInstance.getTbTestDAO() == null) {
+        if (mDbInstance.getTbTestBiz() == null) {
             throw new RuntimeException("DAO null");
         }
 
-        mDbInstance.getTbTestDAO().insert(new TbTest(null, "hell girl" + System.currentTimeMillis()));
+        mDbInstance.getTbTestBiz().insert(new TbTest(null, "hell girl" + System.currentTimeMillis()));
     }
 
     @Override
     public void loadDbItem() {
-        Observable.from(mDbInstance.getTbTestDAO().loadAll())
+        Observable.from(mDbInstance.getTbTestBiz().loadAll())
                 .toList()
                 .map(new Func1<List<TbTest>, String>() {
                     @Override

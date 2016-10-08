@@ -10,6 +10,7 @@ import cn.tofly.mis.waterusermanager.BuildConfig;
 import cn.tofly.mis.waterusermanager.data.DaggerDataComponent;
 import cn.tofly.mis.waterusermanager.data.DataModule;
 import cn.tofly.mis.waterusermanager.data.local.daoimpl.TbTestDAOImpl;
+import cn.tofly.mis.waterusermanager.data.local.dbbiz.DbTestBiz;
 import cn.tofly.mis.waterusermanager.data.local.gendao.DaoMaster;
 import cn.tofly.mis.waterusermanager.data.local.gendao.DaoSession;
 import dagger.Lazy;
@@ -29,7 +30,7 @@ public class DBInstance {
     //other dao impl......
     //it must user Lazy because or it will cause StackOverFlow
     @Inject
-    Lazy<TbTestDAOImpl> mTbTestDAOImpl;
+    Lazy<DbTestBiz> mDbTestBiz;
 
 
     private DBInstance(Context context, App app) {
@@ -78,8 +79,8 @@ public class DBInstance {
      *
      * @return
      */
-    public TbTestDAOImpl getTbTestDAO() {
-        return mTbTestDAOImpl.get();
+    public DbTestBiz getTbTestBiz() {
+        return mDbTestBiz.get();
     }
 
 
