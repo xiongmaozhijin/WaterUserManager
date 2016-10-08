@@ -2,10 +2,7 @@ package cn.tofly.mis.waterusermanager.testmodule;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import cn.tofly.mis.waterusermanager.common.tools.LogUtils;
-import cn.tofly.mis.waterusermanager.common.ui.BasePresenter;
 import cn.tofly.mis.waterusermanager.data.entity.CheckCoder;
 import cn.tofly.mis.waterusermanager.data.local.DBInstance;
 import cn.tofly.mis.waterusermanager.data.local.gendao.TbTest;
@@ -24,13 +21,13 @@ public class TestPresenter implements TestContract.Presenter {
 
     private TestContract.View mView;
 
-    private IExampleNetService mIExampleNetService;
+    private IExampleNetService mService;
 
     private DBInstance mDbInstance;
 
     public TestPresenter(TestContract.View view, IExampleNetService service, DBInstance dbInstance) {
         this.mView = view;
-        this.mIExampleNetService = service;
+        this.mService = service;
         this.mDbInstance = dbInstance;
     }
 
@@ -38,7 +35,7 @@ public class TestPresenter implements TestContract.Presenter {
     public void loadCheckCoders() {
         LogUtils.w("xxx", "loadCheckCoders()");
 
-        mIExampleNetService.getCby("getYqlbList")
+        mService.getCby("getYqlbList")
                 .doOnNext(new Action1<CheckCoder>() {
                     @Override
                     public void call(CheckCoder checkCoder) {

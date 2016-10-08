@@ -22,7 +22,6 @@ import cn.tofly.mis.waterusermanager.R;
 import cn.tofly.mis.waterusermanager.common.tools.LogUtils;
 import cn.tofly.mis.waterusermanager.common.tools.SharedPrefUtils;
 import cn.tofly.mis.waterusermanager.common.ui.BaseFragment;
-import cn.tofly.mis.waterusermanager.data.local.DBInstance;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,7 +29,7 @@ import cn.tofly.mis.waterusermanager.data.local.DBInstance;
 public class TestFragment extends BaseFragment implements TestContract.View {
 
     @Inject
-    TestPresenter mTestPresenter;
+    TestPresenter mPresenter;
 
     @Inject
     SharedPrefUtils mSharedPrefUtils;
@@ -84,7 +83,7 @@ public class TestFragment extends BaseFragment implements TestContract.View {
     @Override
     public void onResume() {
         super.onResume();
-        mTestPresenter.onResume();
+        mPresenter.onResume();
     }
 
     @OnClick(R.id.btn_read)
@@ -93,15 +92,15 @@ public class TestFragment extends BaseFragment implements TestContract.View {
         String xxx = mSharedPrefUtils.getSharedPreferences().getString("xxx", "not setting");
         LogUtils.toastShortMsg(mActivity, xxx);
 
-//        mTestPresenter.loadCheckCoders();
-        mTestPresenter.loadDbItem();
+//        mPresenter.loadCheckCoders();
+        mPresenter.loadDbItem();
     }
 
     @OnClick(R.id.btn_write)
     void btnWrite(View view) {
         LogUtils.w("xxx", "btnWrite()");
 //        mSharedPrefUtils.save("xxx", "girl yessss");
-        mTestPresenter.insertDbItem();
+        mPresenter.insertDbItem();
     }
 
 

@@ -16,6 +16,10 @@
 
 package cn.tofly.mis.waterusermanager.common.tools;
 
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -35,6 +39,29 @@ public class ActivityUtils {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(frameId, fragment);
         transaction.commit();
+    }
+
+
+    /**
+     * 启动Activity
+     *
+     * @param context
+     * @param clazz
+     * @param bundle
+     */
+    public static void startActivity(Activity context, Class clazz, Bundle bundle) {
+        if (context != null) {
+            try {
+                Intent intent = new Intent(context, clazz);
+                intent.putExtra("bundle", bundle);
+                context.startActivity(intent);
+
+            } catch (ActivityNotFoundException e) {
+                e.printStackTrace();
+
+            }
+
+        }
     }
 
 }
